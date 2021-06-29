@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 markdown = "*"
 mako = "*"
+html2text = "*"
 
 [dev-packages]
 
