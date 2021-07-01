@@ -74,14 +74,17 @@ def render_to_file(name, render_kwargs):
         f.write(result)
 
 
-# html = render_template(
-#     "email_previous_sponsor.html",
-#     {"companys": "Your company's", "title": "PyConZA 2021 is looking for sponsors"},
-# )
+def send_email_from_template(
+    template_name, template_kwargs, to_email, from_email, subject
+):
+    html = render_template(
+        template_name,
+        template_kwargs,
+    )
 
-# send_html_email(
-#     to_email="sheena.oconnell@umuzi.org",
-#     from_email="sponsorship@za.pycon.org",
-#     html=html,
-#     subject="PyconZa call for sponsors",
-# )
+    send_html_email(
+        to_email=to_email,
+        from_email=from_email,
+        html=html,
+        subject=subject,
+    )
