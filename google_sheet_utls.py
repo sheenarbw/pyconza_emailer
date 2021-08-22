@@ -1,5 +1,6 @@
 import logging
 import gspread
+from settings import GOOGLE_SHEETS_CREDENTIALS_FILE
 
 
 def fetch_sheet(sheet: str = None, url: str = None):
@@ -32,16 +33,14 @@ def _authorize_creds():
         "https://www.googleapis.com/auth/drive",
     ]
 
-    SECRETS_FILE = os.getenv("GOOGLE_SHEETS_CREDENTIALS_FILE")
-
-    if not SECRETS_FILE:
+    if not GOOGLE_SHEETS_CREDENTIALS_FILE:
         raise Exception(
             "Missing environmental variable: GOOGLE_SHEETS_CREDENTIALS_FILE"
         )
 
     # Based on docs here - http://gspread.readthedocs.org/en/latest/oauth2.html
     # Load in the secret JSON key in working directory (must be a service account)
-    json_key = json.load(open(SECRETS_FILE))
+    json_key = json.load(open(GOOGLE_SHEETS_CREDENTIALS_FILE))
 
     # Authenticate using the signed key
     credentials = SignedJwtAssertionCredentials(
