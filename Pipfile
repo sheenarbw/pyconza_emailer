@@ -7,6 +7,12 @@ name = "pypi"
 mako = "*"
 fire = "*"
 html2text = "*"
+google-api-python-client = "*"
+google-auth-httplib2 = "*"
+google-auth-oauthlib = "*"
+gspread = "==3.1.0"
+oauth2client = "==1.5.2"
+pyopenssl = "==19.0.0"
 
 [dev-packages]
 black = "*"
