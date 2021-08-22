@@ -19,7 +19,6 @@ rows = [row for row in rows if row["Email"].strip() != ""]
 #     subject="PyConZA call for sponsors",
 # )
 
-breakpoint()
 for row in rows:
     print(f"processing {row['Organization']} {row['Email']}")
 

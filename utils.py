@@ -1,7 +1,7 @@
 import smtplib, ssl
 from email.message import EmailMessage
 from email.utils import formatdate
-from config import SMTP_HOST, SMTP_PASSWORD, SMTP_USERNAME
+from settings import SMTP_HOST, SMTP_PASSWORD, SMTP_USERNAME
 
 
 def send_email(message):
@@ -57,12 +57,12 @@ def send_html_email(to_email, from_email, subject, html):
     send_email(message)
 
 
-def render_template(name, render_kwargs):
+def render_template(name, template_kwargs):
     from mako.lookup import TemplateLookup
 
     lookup = TemplateLookup(directories=["templates"])
     template = lookup.get_template(name)
-    return template.render(**render_kwargs)
+    return template.render(**template_kwargs)
 
 
 def render_to_file(name, render_kwargs):

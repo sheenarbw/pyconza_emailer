@@ -7,9 +7,9 @@ name = "pypi"
 markdown = "*"
 mako = "*"
 html2text = "*"
+fire = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
-
