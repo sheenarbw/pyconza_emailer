@@ -21,11 +21,9 @@ for row in rows:
             "title": "PyConZA 2021 is looking for sponsors",
             "company": row["Organization"],
         },
-        # to_email="sheena.oconnell@umuzi.org",
         to_email=row["Email"],
         from_email="sponsorship@za.pycon.org",
         subject="PyConZA call for sponsors",
     )
-    # break
 
     time.sleep(10)

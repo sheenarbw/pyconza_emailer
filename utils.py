@@ -5,8 +5,8 @@ from settings import SMTP_HOST, SMTP_PASSWORD, SMTP_USERNAME
 
 
 def send_email(message):
-    context = ssl.create_default_context()
     PORT = 587
+    context = ssl.create_default_context()
     server = smtplib.SMTP(SMTP_HOST, PORT)
     server.ehlo()
     server.starttls(context=context)
