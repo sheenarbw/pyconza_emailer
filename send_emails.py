@@ -25,10 +25,12 @@ def _fetch_email_preferences():
 def _fetch_recipients(list_name, include_wafer_users, include_google_sheet):
     """returns an array of email addresses"""
     users = []
-    if include_wafer_users:
-        users.extend(wafer_utils.fetch_all_users_and_ticket_emails())
     if include_google_sheet:
+        logging.info("fetching sheet users")
         users.extend([d[EMAIL] for d in fetch_sheet(url=include_google_sheet)])
+    if include_wafer_users:
+        logging.info("fetching wafer users")
+        users.extend(wafer_utils.fetch_all_users_and_ticket_emails())
     known_preferences = _fetch_email_preferences()
 
     final_users = []
@@ -36,6 +38,8 @@ def _fetch_recipients(list_name, include_wafer_users, include_google_sheet):
         if user in known_preferences:
             if list_name in known_preferences[user]:
                 final_users.append(user)
+            else:
+                logging.info(f"removing user: {user}")
         else:
             final_users.append(user)
     return set(final_users)
@@ -49,6 +53,7 @@ def send_emails(
     dry_run_render_to_file_path=None,
     dry_run_send_to_email_address=None,
     dry_run_fetch_recipients=True,
+    dry_run_dont_send=False,
     start_at_recipient_number=1,
     include_wafer_users=False,
     include_google_sheet=None,
@@ -57,7 +62,8 @@ def send_emails(
     """
     Example usage:
     python send_emails.py --template_name "base.html" --list_name="boo" --subject="yay" --message="this is a test" --dry_run_render_to_file_path="gitignore/rendered_base.html"
-    python send_emails.py --template_name "base.html" --list_name="boo" --subject="yay" --message="this is a test" --dry_run_send_to_email_address="sheena.oconnell@gmail.com" from_email="sponsorship@za.pycon.org"
+
+    python send_emails.py --template_name "base.html" --list_name="boo" --subject="yay" --message="this is a test" --dry_run_send_to_email_address="sheena.oconnell@gmail.com" --from_email="team@za.pycon.org"
 
     RECIPIENTS
     - list_name: this allows us to let people be on multiple email lists. eg "Community and event news","Sponsorship packages". The name passed in here should match something in the preferences sheet EXACTLY
@@ -73,15 +79,20 @@ def send_emails(
     template_kwargs["title"] = template_kwargs.get("title", subject)
 
     if dry_run_fetch_recipients:
+        logging.info("FETCHING RECIPIENTS...")
         recipients = _fetch_recipients(
             list_name=list_name,
             include_wafer_users=include_wafer_users,
             include_google_sheet=include_google_sheet,
         )
+    else:
+        logging.info("FETCHING RECIPIENTS SKIPPED")
     if dry_run_send_to_email_address:
-        recipients = [{EMAIL: dry_run_send_to_email_address}]
+        logging.info("...dry run: Overriding recipient list")
+
+        recipients = [dry_run_send_to_email_address]
     elif dry_run_render_to_file_path:
-        recipients = [{EMAIL: "someone-nice@example.com"}]
+        recipients = ["someone-nice@example.com"]
 
     total = len(recipients)
     for n, recipient in enumerate(recipients):
@@ -95,18 +106,27 @@ def send_emails(
             name=template_name, template_kwargs=template_kwargs
         )
         if dry_run_render_to_file_path:
+            logging.info("...dry run: rendering to file")
+
             with open(Path(dry_run_render_to_file_path), "w") as f:
                 f.write(html)
             return
 
-        # continue
-        # actually send the email
-        utils.send_html_email(
-            to_email=recipient, from_email=from_email, html=html, subject=subject
-        )
-        time.sleep(
-            10
-        )  # TODO: I'm not sure if there is any rate limiting set up on the smtp server. So this might need to change
+        if dry_run_dont_send:
+            logging.info("...dry run: Not sent")
+
+        else:
+            # actually send the email
+            utils.send_html_email(
+                to_email=recipient,
+                from_email=from_email,
+                html=html,
+                subject=subject,
+            )
+            logging.info("...sent")
+            time.sleep(
+                10
+            )  # TODO: I'm not sure if there is any rate limiting set up on the smtp server. So this might need to change
 
 
 if __name__ == "__main__":

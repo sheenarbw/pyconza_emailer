@@ -1,0 +1,47 @@
+<%inherit file="../base.html"/>
+<%namespace name="defs" file="../defs.html"/>
+
+<%block name="content">
+
+<p>PyConZA is happening early next month! Woot!</p>
+
+<h2>Swag!</h2>
+<p>
+    Good news everybody! We got swag :)
+</p>
+<p>
+    Since this is a remote event, we need to get some details from you so we can hook you up.
+</p>
+
+${defs.call_to_action(href='https://za.pycon.org/news/mugs/',label='Claim your swag')}
+
+<h2>The talks</h2>
+<p>
+    We have received loads of interesting talk submissions. The review committee are making the final decisions about accepted talks as we speak.
+</p>
+<p>
+    We have confirmed that the amazing Jade Abbott will be doing the opening keynote. Jade is the Machine Learning Lead at Retro Rabbit in South Africa and a PyConZA veteran. She has wowed us with her insightful and energetic talks in the past.
+</p>
+<p>
+    You can see the full details of Jade's talk by clicking the button below.
+</p>
+
+${defs.call_to_action(href='https://za.pycon.org/users/alienelf/',label='Claim your swag')}
+
+<p>
+    The full talk program will be released in the near future. Stay tuned!
+</p>
+
+<h2>Ticket sales</h2>
+
+<p>
+    Ticket sales are still open. If you haven't got your ticket yet, don't miss out!
+</p>
+<p>
+    Because we are fully online and powered by volunteers, we've managed to keep the ticket prices very low. That said, if you do need financial assistance to join the event then reach out. We are happy to assist.
+</p>
+
+${defs.call_to_action(href='https://za.pycon.org/tickets/buy-tickets/',label='Buy tickets')}
+
+
+</%block>
