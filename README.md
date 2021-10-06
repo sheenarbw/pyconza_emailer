@@ -23,10 +23,6 @@ These are rendered using Mako templates. The current templates are all PyconZA20
 - Look at settings.py to see available environmental variables
 - The entry point of this is `send_emails.py`. Take a look.
 
-
-
-
-
 ## Example workflow: creating testing an sending a bulk email
 
 ### Step 1: Email content and layout:
