@@ -19,6 +19,8 @@ def fetch_all_pages(url):
     return results
 
 
-def fetch_all_users_and_ticket_emails():
-    results = fetch_all_pages(USER_LIST_URL) + fetch_all_pages(TICKET_LIST_URL)
+def fetch_all_users_and_ticket_emails(ticket_holders_only):
+    results = fetch_all_pages(TICKET_LIST_URL)
+    if not ticket_holders_only:
+        results.extend(fetch_all_pages(USER_LIST_URL))
     return [d["email"] for d in results]

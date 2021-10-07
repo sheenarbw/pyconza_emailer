@@ -22,7 +22,9 @@ def _fetch_email_preferences():
     return preferences
 
 
-def _fetch_recipients(list_name, include_wafer_users, include_google_sheet):
+def _fetch_recipients(
+    list_name, include_wafer_users, include_google_sheet, ticket_holders_only
+):
     """returns an array of email addresses"""
     users = []
     if include_google_sheet:
@@ -30,7 +32,7 @@ def _fetch_recipients(list_name, include_wafer_users, include_google_sheet):
         users.extend([d[EMAIL] for d in fetch_sheet(url=include_google_sheet)])
     if include_wafer_users:
         logging.info("fetching wafer users")
-        users.extend(wafer_utils.fetch_all_users_and_ticket_emails())
+        users.extend(wafer_utils.fetch_all_users_and_ticket_emails(ticket_holders_only))
     known_preferences = _fetch_email_preferences()
 
     final_users = []
@@ -57,6 +59,7 @@ def send_emails(
     start_at_recipient_number=1,
     include_wafer_users=False,
     include_google_sheet=None,
+    ticket_holders_only=False,
     **template_kwargs,
 ):
     """
@@ -84,17 +87,20 @@ def send_emails(
             list_name=list_name,
             include_wafer_users=include_wafer_users,
             include_google_sheet=include_google_sheet,
+            ticket_holders_only=ticket_holders_only,
         )
+        logging.info(f"FETCHED {len(recipients)} recipients")
     else:
         logging.info("FETCHING RECIPIENTS SKIPPED")
+
     if dry_run_send_to_email_address:
         logging.info("...dry run: Overriding recipient list")
-
         recipients = [dry_run_send_to_email_address]
     elif dry_run_render_to_file_path:
         recipients = ["someone-nice@example.com"]
 
     total = len(recipients)
+    breakpoint()
     for n, recipient in enumerate(recipients):
         number = n + 1
         if number < start_at_recipient_number:  # skip if we need to
