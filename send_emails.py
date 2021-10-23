@@ -100,7 +100,6 @@ def send_emails(
         recipients = ["someone-nice@example.com"]
 
     total = len(recipients)
-    breakpoint()
     for n, recipient in enumerate(recipients):
         number = n + 1
         if number < start_at_recipient_number:  # skip if we need to
@@ -131,7 +130,7 @@ def send_emails(
             )
             logging.info("...sent")
             time.sleep(
-                10
+                1
             )  # TODO: I'm not sure if there is any rate limiting set up on the smtp server. So this might need to change
 
 
