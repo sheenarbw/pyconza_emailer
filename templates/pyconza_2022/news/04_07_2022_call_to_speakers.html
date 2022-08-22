@@ -1,0 +1,42 @@
+<%inherit file="../../base.html"/>
+<%namespace name="defs" file="../../defs.html"/>
+
+<%block name="content">
+
+<hr/>
+<p>
+    You're getting this email because you attended a previous PyConZA event or signed up for our newsletter in the past. Please feel free to <a href="https://forms.gle/6mtmbT4nBrd7ZAaEA">unsubscribe</a> if you no longer want to receive these messages.
+</p>
+<hr/>
+
+<h3>
+    In-person talk submissions are open
+</h3>
+<p>
+    We are happy to announce that talk submissions are now open. For now we are only accepting in-person talks.
+</p>
+
+<p>As a community-focused event, we accept, support and greatly appreciate anyone who steps up.</p>
+
+<p>If you are new to public speaking it's worth knowing that PyConZA usually draws a very friendly and supportive crowd. We also have volunteers who are willing to support you as you refine your talk idea, and who can coach you in public speaking. </p>
+
+<p>We have a few different kinds of talk-slots and tracks to choose from. Learn more by following the link below:</p>
+
+
+${defs.call_to_action(href='https://za.pycon.org/talks/submit-talk/',label='Everything you need to know about talk submissions')}
+
+
+<h3>
+    Important information about tickets
+</h3>
+
+<p>
+    PyConZA 2022 is a hybrid event. That means that we support both in-person and remote attendees. We have different kinds of tickets for different kinds of attendees.
+</p>
+
+<p> If you want to join us in Durban as an in-person attendee then you will need to buy a "Durban" ticket. And if you will be joining us remotely then you'll need an "Online" ticket.</p>
+
+${defs.call_to_action(href='https://za.pycon.org/tickets/buy-tickets/',label='Buy tickets')}
+
+
+</%block>

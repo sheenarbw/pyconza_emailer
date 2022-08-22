@@ -1,0 +1,34 @@
+<%inherit file="../../base.html"/>
+<%namespace name="defs" file="../../defs.html"/>
+
+<%block name="content">
+
+<p>
+    We recently reached out to you as a potential sponsor for PyConZA 2022. We wanted to keep you in the loop, here are a few updates.
+</p>
+
+<h3>We would like to thank our Platinum sponsor</h3>
+
+<p><b><a href="https://canary.tools/">Thinkst Canary</a></b> have taken the top spot as this year's Platinum sponsor. They have been friends to the conference for some time and do amazing work in the cyber security space. Thank you Thinkst!</p>
+
+<h3>
+    We have finalized the dates and venue
+</h3>
+<p>
+    The PyConZA main event will be held on <b>13 and 14 October 2022</b>.
+</p>
+<p>
+    The venue is the <b><a href="https://www.premierhotels.co.za/hotels/kwazulu-natal/splendid-inn-umhlanga/">Premier Splendid Inn</a></b> in Umhlanga, South Africa.
+</p>
+
+<img src="https://www.premierhotels.co.za/wp-content/uploads/2021/09/Premier-Splendid-Inn-Umhlanga-Conference-Centre-Rooftop.jpg" width="100%"/>
+
+To see the full details of the event, please visit our website.
+
+${defs.call_to_action(href='https://za.pycon.org/',label='Visit our site')}
+
+<%include file="part_sponsorship_packages.html"/>
+
+${defs.call_to_action(href='mailto:sponsorship@za.pycon.org',label='Get in touch')}
+
+</%block>

@@ -1,0 +1,56 @@
+<%inherit file="../../base.html"/>
+<%namespace name="defs" file="../../defs.html"/>
+
+<%block name="content">
+
+<hr/>
+<p>
+    You're getting this email because you attended a previous PyConZA event or signed up for our newsletter in the past. Please feel free to <a href="https://forms.gle/6mtmbT4nBrd7ZAaEA">unsubscribe</a> if you no longer want to receive these messages.
+</p>
+<hr/>
+
+<h3>
+    We have finalized the dates and venue
+</h3>
+<p>
+    The PyConZA main event will be held on <b>13 and 14 October 2022</b>.
+</p>
+<p>
+    The venue is the <b><a href="https://www.premierhotels.co.za/hotels/kwazulu-natal/splendid-inn-umhlanga/">Premier Splendid Inn</a></b> in Umhlanga, South Africa.
+</p>
+
+<img src="https://www.premierhotels.co.za/wp-content/uploads/2021/09/Premier-Splendid-Inn-Umhlanga-Conference-Centre-Rooftop.jpg" width="100%"/>
+
+<h2>Ticket sales are open</h2>
+<p>
+We have a variety of tickets to choose from. Get yours while they are still at early-bird prices :)
+</p>
+<p>
+It's important to note that if you pick up an online conference ticket then that will not give you access to the physical event.
+</p>
+<p>
+    The in-person event is an expensive thing to put together and we do pay the venue per head, so if you buy an online-only ticket and you show up at the venue we will unfortunately have to turn you away.
+</p>
+<p>
+
+    If you want to join us in person, but don't have the funds for the ticket, then you can apply for financial aid. The details are on the tickets page:
+</p>
+
+${defs.call_to_action(href='https://za.pycon.org/tickets/buy-tickets/',label='Buy tickets')}
+
+<h2>Call for speakers</h2>
+
+<p>We'll be opening talk submissions next week.</p>
+<p>As a community-focused event, we accept, support and greatly appreciate anyone who steps up.</p>
+<p>If you are new to public speaking it's worth knowing that PyConZA usually draws a very friendly and supportive crowd. We also have volunteers who are willing to support you as you refine your talk idea, and who can coach you in public speaking. </p>
+
+
+<h2>Register on our site</h2>
+
+<p>
+    If you are interested in attending our event, or staying up to date with the latest news, please register on our site.
+</p>
+
+${defs.call_to_action(href='https://za.pycon.org/',label='Register now')}
+
+</%block>

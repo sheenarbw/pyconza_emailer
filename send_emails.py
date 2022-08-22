@@ -23,13 +23,13 @@ def _fetch_email_preferences():
 
 
 def _fetch_recipients(
-    list_name, include_wafer_users, include_google_sheet, ticket_holders_only
+    list_name, include_wafer_users, included_google_sheet, ticket_holders_only
 ):
     """returns an array of email addresses"""
     users = []
-    if include_google_sheet:
+    if included_google_sheet:
         logging.info("fetching sheet users")
-        users.extend([d[EMAIL] for d in fetch_sheet(url=include_google_sheet)])
+        users.extend([d[EMAIL] for d in included_google_sheet])
     if include_wafer_users:
         logging.info("fetching wafer users")
         users.extend(wafer_utils.fetch_all_users_and_ticket_emails(ticket_holders_only))
@@ -44,8 +44,26 @@ def _fetch_recipients(
                 logging.info(f"removing user: {user}")
         else:
             final_users.append(user)
-    return set(final_users)
+    return set([s.strip() for s in final_users if s.strip()])
 
+def final_kwargs(template_kwargs,included_google_sheet,recipient):
+    """We have some template kwargs. If there is anything else mentioned in the google sheet then add those as kwargs as well"""
+    if included_google_sheet==None:
+        return template_kwargs
+    else:
+        filtered_sheet = [row for row in included_google_sheet if row[EMAIL]==recipient]
+
+        if len(filtered_sheet) == 0:
+            return template_kwargs
+        if len(filtered_sheet) > 1:
+            raise Exception(f"Error: {recipient} appears more than once in input sheet")
+
+        result = {}
+        for k,v in template_kwargs.items():
+            result[k] = v
+        for k,v in filtered_sheet[0].items():
+            result[k.replace(' ','_').lower()] = v
+        return result
 
 def send_emails(
     template_name,
@@ -81,12 +99,14 @@ def send_emails(
 
     template_kwargs["title"] = template_kwargs.get("title", subject)
 
+    included_google_sheet = fetch_sheet(url=include_google_sheet) if include_google_sheet else None
+
     if dry_run_fetch_recipients:
         logging.info("FETCHING RECIPIENTS...")
         recipients = _fetch_recipients(
             list_name=list_name,
             include_wafer_users=include_wafer_users,
-            include_google_sheet=include_google_sheet,
+            included_google_sheet=included_google_sheet,
             ticket_holders_only=ticket_holders_only,
         )
         logging.info(f"FETCHED {len(recipients)} recipients")
@@ -108,7 +128,7 @@ def send_emails(
         logging.info(f"sending to recipient {number}/{total}: {recipient}")
 
         html = utils.render_template(
-            name=template_name, template_kwargs=template_kwargs
+            name=template_name, template_kwargs=final_kwargs(template_kwargs,included_google_sheet,recipient)
         )
         if dry_run_render_to_file_path:
             logging.info("...dry run: rendering to file")

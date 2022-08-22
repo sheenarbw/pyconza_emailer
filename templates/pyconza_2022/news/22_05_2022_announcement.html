@@ -1,0 +1,38 @@
+<%inherit file="../../base.html"/>
+<%namespace name="defs" file="../../defs.html"/>
+
+<%block name="content">
+
+<p>PyConZA 2022 is happening! Woot!</p>
+
+<hr/>
+<p>
+    You're getting this email because you attended a previous PyConZA event or signed up for our newsletter in the past. Please feel free to <a href="https://forms.gle/6mtmbT4nBrd7ZAaEA">unsubscribe</a> if you no longer want to receive these messages.
+</p>
+<hr/>
+
+<h2>PyConZA 2022</h2>
+
+<p>
+    This year we are running a hybrid conference - in person conferences tend to be more engaging in many ways. But given the successes of our remote conferences in recent years, we are aiming to support both remote and in-person participation.
+</p>
+<p>
+    The in-person part of PyConZA 2022 will be hosted in Durban, South Africa, and the remote portion will be hosted everywhere.  The final dates and location will be announced around the beginning of July.
+</p>
+
+<%include file="../part_the_plan.html"/>
+
+<h2>Register on our site</h2>
+
+<p>
+    If you are interested in attending our event, or staying up to date with the latest news, please register on our site.
+</p>
+
+<p>Please note that ticket sales are not yet open. We will be opening sales soon. Stay tuned :)</p>
+
+
+
+${defs.call_to_action(href='https://za.pycon.org/',label='Register now')}
+
+
+</%block>
